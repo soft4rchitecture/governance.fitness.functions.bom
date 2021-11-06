@@ -2,19 +2,31 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.monfollet.architecture.governance</groupId>
+	<groupId>io.github.soft4rchitecture</groupId>
 	<artifactId>fitness.functions.bom</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+	<name>Architecture Fitness Functions Bill Of Materials</name>
+	<description>This project first helps managing dependencies for various Architecture Fitness Functions tools.
+		Various other BoMs will probably grow out of that initial project, like Test Dependency Management BoMs, 
+		Architectype for Architecture Fitness Function aware java projects, etc. 
+	</description>
+	<url>https://github.com/soft4rchitecture/governance.fitness.functions.bom</url>
 
-  <scm>
-    <connection>scm:git:https://github.com/romdarom/architecture.governance.git</connection>
-    <developerConnection>scm:git:https://github.com/romdarom/architecture.governance.git</developerConnection>
-    <url>https://github.com/romdarom/architecture.governance.git/tree/${project.scm.tag}</url>
-    <tag>main</tag>
-  </scm>
-  
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<scm>
+		<connection>scm:git:https://github.com/romdarom/architecture.governance.git</connection>
+		<developerConnection>scm:git:https://github.com/romdarom/architecture.governance.git</developerConnection>
+		<url>https://github.com/romdarom/architecture.governance.git/tree/${project.scm.tag}</url>
+		<tag>main</tag>
+	</scm>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -47,4 +59,17 @@
 
 		</dependencies>
 	</dependencyManagement>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
+	</distributionManagement>
 </project>
