@@ -21,10 +21,10 @@
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:git:https://github.com/romdarom/architecture.governance.git</connection>
-		<developerConnection>scm:git:https://github.com/romdarom/architecture.governance.git</developerConnection>
-		<url>https://github.com/romdarom/architecture.governance.git/tree/${project.scm.tag}</url>
-		<tag>main</tag>
+		<connection>scm:git:https://github.com/soft4rchitecture/governance.fitness.functions.bom.git</connection>
+		<developerConnection>scm:git:https://github.com/soft4rchitecture/governance.fitness.functions.bom.git</developerConnection>
+		<url>https://github.com/soft4rchitecture/governance.fitness.functions.bom/tree/${project.scm.tag}</url>
+		<tag>HEAD</tag>
 	</scm>
 
 	<dependencyManagement>
