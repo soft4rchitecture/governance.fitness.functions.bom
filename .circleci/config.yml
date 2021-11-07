@@ -6,29 +6,28 @@ version: 2.1
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  retrieve-gpg-key:
+  # retrieve-gpg-key:
+  #   jobs:
+  #     - print-gpg-private-key:
+  #         context: soft4rchitecture
+  release:
     jobs:
-      - print-gpg-private-key:
+      - circleci-maven-release-orb/run-maven-release:
           context: soft4rchitecture
-  # release-dry-run:
-  #   jobs:
-  #     - circleci-maven-release-orb/run-maven-release:
-  #         mvn-release-perform-command: mvn --batch-mode release:perform -DdryRun=true -s .circleci/.maven.xml
-  #         ssh-fingerprints:
-  # release:
-  #   jobs:
-      # - circleci-maven-release-orb/run-maven-release:
-      #     context: soft4rchitecture
-      #     mvn-release-perform-command: mvn --batch-mode release:perform -DdryRun=true -s .circleci/.maven.xml
-      #     ssh-fingerprints: "e7:2e:d8:10:66:6a:6d:64:62:52:0a:dc:28:1e:eb:28"
-      # - request-testing:
-      #     type: approval
-      # - circleci-maven-release-orb/run-maven-release:
-      #     context: soft4rchitecture
-      #     ssh-fingerprints: "e7:2e:d8:10:66:6a:6d:64:62:52:0a:dc:28:1e:eb:28"
-      #     requires:
-      #       - circleci-maven-release-orb/run-maven-release
-      #       - request-testing
+          name: release-dry-run
+          mvn-release-perform-command: mvn --batch-mode release:perform -DdryRun=true -s .circleci/.maven.xml
+          ssh-fingerprints: "e7:2e:d8:10:66:6a:6d:64:62:52:0a:dc:28:1e:eb:28"
+      - request-testing:
+          type: approval
+          requires: 
+            - release-dry-run
+      - circleci-maven-release-orb/run-maven-release:
+          context: soft4rchitecture
+          name: release
+          ssh-fingerprints: "e7:2e:d8:10:66:6a:6d:64:62:52:0a:dc:28:1e:eb:28"
+          requires:
+            - release-dry-run
+            - request-testing
 
 
 orbs:
