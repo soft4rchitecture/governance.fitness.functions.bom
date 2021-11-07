@@ -6,14 +6,17 @@ version: 2.1
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  release-dry-run:
+  retrieve-gpg-key:
     jobs:
-      - circleci-maven-release-orb/run-maven-release:
-          mvn-release-perform-command: mvn --batch-mode release:perform -DdryRun=true -s .circleci/.maven.xml
-          ssh-fingerprints:
-  release:
-    jobs:
-      - print-gpg-private-key
+      - print-gpg-private-key:
+          context: soft4rchitecture
+  # release-dry-run:
+  #   jobs:
+  #     - circleci-maven-release-orb/run-maven-release:
+  #         mvn-release-perform-command: mvn --batch-mode release:perform -DdryRun=true -s .circleci/.maven.xml
+  #         ssh-fingerprints:
+  # release:
+  #   jobs:
       # - circleci-maven-release-orb/run-maven-release:
       #     context: soft4rchitecture
       #     mvn-release-perform-command: mvn --batch-mode release:perform -DdryRun=true -s .circleci/.maven.xml
