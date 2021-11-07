@@ -2,6 +2,9 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+orbs:
+  circleci-maven-release-orb: sonatype-nexus-community/circleci-maven-release-orb@0.0.16
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
@@ -30,7 +33,20 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  release-dry-run:
     jobs:
-      - build-and-test
+      - circleci-maven-release-orb/run-maven-release:
+          mvn-release-perform-command: mvn --batch-mode release:perform -DdryRun=true -s .circleci/.maven.xml
+          ssh-fingerprints:
+  release:
+    jobs:
+      - circleci-maven-release-orb/run-maven-release:
+          mvn-release-perform-command: mvn --batch-mode release:perform -DdryRun=true -s .circleci/.maven.xml
+          ssh-fingerprints: "e7:2e:d8:10:66:6a:6d:64:62:52:0a:dc:28:1e:eb:28"
+      - request-testing:
+          type: approval
+      - circleci-maven-release-orb/run-maven-release:
+          ssh-fingerprints: "e7:2e:d8:10:66:6a:6d:64:62:52:0a:dc:28:1e:eb:28"
+          requires:
+            - circleci-maven-release-orb/run-maven-release
+            - request-testing
