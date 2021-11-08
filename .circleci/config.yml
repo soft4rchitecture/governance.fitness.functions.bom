@@ -2,6 +2,27 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+  # anchors 
+feature_branch_only: &feature_branch_only
+  filters:
+    branches:
+      only: /^issue-.*/
+
+main_branch_only: &main_branch_only
+  filters:
+    branches:
+      only: main
+
+all_branches_but_main: &all_branches_but_main
+  filters:
+    branches:
+      ignore: main
+
+tag_branch_only: &tag_branch_only
+  filters:
+    branches:
+      only: /^tag-.*/
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -13,17 +34,20 @@ workflows:
   release:
     jobs:
       - circleci-maven-release-orb/run-maven-release:
+          <<: *all_branches_but_main
           context: soft4rchitecture
           name: release-dry-run
           mvn-release-perform-command: mvn --batch-mode release:perform -DdryRun=true -s .circleci/.maven.xml
           ssh-fingerprints: "be:fa:a7:36:16:85:9f:38:7a:00:f4:3b:23:d4"
       - request-testing:
+          <<: *tag_branch_only
           type: approval
           requires: 
             - release-dry-run
       - circleci-maven-release-orb/run-maven-release:
           context: soft4rchitecture
           name: release
+          <<: *tag_branch_only
           ssh-fingerprints: "be:fa:a7:36:16:85:9f:38:7a:00:f4:3b:23:d4"
           requires:
             - release-dry-run
@@ -64,3 +88,4 @@ jobs:
       - run:
           name: Test
           command: mvn test
+
