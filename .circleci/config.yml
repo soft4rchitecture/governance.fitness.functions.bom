@@ -2,9 +2,45 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+# anchors
+main_branch_only: &main_branch_only
+  filters:
+    branches:
+      only: main
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  # retrieve-gpg-key:
+  #   jobs:
+  #     - print-gpg-private-key:
+  #         context: soft4rchitecture
+  release:
+    jobs:
+      - request-testing:
+          <<: *main_branch_only
+          type: approval
+      - circleci-maven-release-orb/run-maven-release:
+          context: soft4rchitecture
+          name: release
+          <<: *main_branch_only
+          ssh-fingerprints: "be:fa:a7:36:16:85:9f:38:7a:00:f4:3b:23:d4"
+          requires:
+            - request-testing
+
+orbs:
+  circleci-maven-release-orb: sonatype-nexus-community/circleci-maven-release-orb@0.0.16
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
+  print-gpg-private-key:
+    docker:
+      - image: cimg/base:2021.04
+    steps:
+      - run:
+          name: print
+          command: echo "secret is ${SECRING_GPG_ASC_BASE64}"
   # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
   build-and-test:
     # These next lines define a Docker executor: https://circleci.com/docs/2.0/executor-types/
@@ -26,11 +62,3 @@ jobs:
       - run:
           name: Test
           command: mvn test
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
-workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
-    jobs:
-      - build-and-test
