@@ -17,17 +17,17 @@ workflows:
   #         context: soft4rchitecture
   release:
     jobs:
-      - request-testing:
-          <<: *main_branch_only
-          type: approval
+      # - request-testing:
+      #     <<: *main_branch_only
+      #     type: approval
       - circleci-maven-release-orb/run-maven-release:
           context: soft4rchitecture
           name: release
           <<: *main_branch_only
-          mvn-release-perform-command: mvn --batch-mode release:perform -X -s .circleci/.maven.xml
+          mvn-release-prepare-command: mvn --batch-mode release:prepare -X -DscmCommentPrefix="[skip ci] [maven-release-plugin] "
           ssh-fingerprints: "yyuD4zPWgK80QOvgE2bXVDqkQZgeswXEP3IDW9eLsKY"
-          requires:
-            - request-testing
+          # requires:
+          #   - request-testing
 
 orbs:
   circleci-maven-release-orb: sonatype-nexus-community/circleci-maven-release-orb@0.0.16
