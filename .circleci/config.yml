@@ -25,7 +25,7 @@ workflows:
           name: release
           <<: *main_branch_only
           mvn-release-prepare-command: mvn --batch-mode release:prepare -X -DscmCommentPrefix="[skip ci] [maven-release-plugin] "
-          ssh-fingerprints: "yyuD4zPWgK80QOvgE2bXVDqkQZgeswXEP3IDW9eLsKY"
+          ssh-fingerprints: "be:fa:a7:36:16:85:9f:38:7a:00:f4:3b:23:d4"
           # requires:
           #   - request-testing
 
