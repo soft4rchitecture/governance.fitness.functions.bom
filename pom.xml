@@ -25,6 +25,19 @@
 		<tag>HEAD</tag>
 	</scm>
 
+	<developers>
+		<developer>
+			<id>duuude</id>
+			<name>Romain</name>
+			<email>soft4rchitecture@gmail.com</email>
+			<roles>
+				<role>Software Architect</role>
+				<role>Developper</role>
+			</roles>
+			<timezone>Europe/Paris</timezone>
+		</developer>
+	</developers>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
