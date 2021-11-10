@@ -24,6 +24,7 @@ workflows:
           context: soft4rchitecture
           name: release
           <<: *main_branch_only
+          executor: maven-executor-jdk11
           mvn-release-prepare-command: mvn --batch-mode release:prepare -X -DscmCommentPrefix="[skip ci] [maven-release-plugin] "
           ssh-fingerprints: "be:fa:a7:36:16:85:9f:38:7a:00:f4:3b:23:d4"
           # requires:
@@ -31,6 +32,12 @@ workflows:
 
 orbs:
   circleci-maven-release-orb: sonatype-nexus-community/circleci-maven-release-orb@0.0.16
+
+executors:
+  maven-executor-jdk11:
+    description: "CircleCI provided docker image with OpenJDK installed. see: https://circleci.com/docs/2.0/circleci-images/#openjdk"
+    docker:
+      - image: circleci/openjdk:11-jdk
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
