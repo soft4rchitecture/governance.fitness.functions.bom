@@ -24,6 +24,7 @@ workflows:
           context: soft4rchitecture
           name: release
           <<: *main_branch_only
+          mvn-release-perform-command: mvn --batch-mode release:perform -X -s .circleci/.maven.xml
           ssh-fingerprints: "yyuD4zPWgK80QOvgE2bXVDqkQZgeswXEP3IDW9eLsKY"
           requires:
             - request-testing
