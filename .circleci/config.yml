@@ -25,7 +25,6 @@ workflows:
           name: release
           <<: *main_branch_only
           executor: maven-executor-jdk11
-          mvn-release-prepare-command: mvn --batch-mode release:prepare -X -DscmCommentPrefix="[skip ci] [maven-release-plugin] "
           ssh-fingerprints: "yyuD4zPWgK80QOvgE2bXVDqkQZgeswXEP3IDW9eLsKY"
           # requires:
           #   - request-testing
