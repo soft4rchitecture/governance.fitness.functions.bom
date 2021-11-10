@@ -24,7 +24,7 @@ workflows:
           context: soft4rchitecture
           name: release
           <<: *main_branch_only
-          ssh-fingerprints: "be:fa:a7:36:16:85:9f:38:7a:00:f4:3b:23:d4"
+          ssh-fingerprints: "yyuD4zPWgK80QOvgE2bXVDqkQZgeswXEP3IDW9eLsKY"
           requires:
             - request-testing
 
