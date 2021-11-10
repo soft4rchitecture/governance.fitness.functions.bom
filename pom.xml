@@ -19,8 +19,8 @@
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:git:https://github.com/soft4rchitecture/governance.fitness.functions.bom.git</connection>
-		<developerConnection>scm:git:https://github.com/soft4rchitecture/governance.fitness.functions.bom.git</developerConnection>
+		<connection>scm:git:git@github.com/soft4rchitecture/governance.fitness.functions.bom.git</connection>
+		<developerConnection>scm:git:git@github.com/soft4rchitecture/governance.fitness.functions.bom.git</developerConnection>
 		<url>https://github.com/soft4rchitecture/governance.fitness.functions.bom/tree/${project.scm.tag}</url>
 		<tag>HEAD</tag>
 	</scm>
